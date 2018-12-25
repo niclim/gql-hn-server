@@ -3,30 +3,20 @@ const { omit } = require('lodash')
 
 class Stories {
   async _getStoryIds(type) {
-    try {
-      return await HNClient.get(`/${type}stories.json`)
-    } catch (e) {
-      console.error(e)
-      return []
-    }
+    return await HNClient.getStoryIds(type)
   }
 
   // Basically the same as Comment.get but want to explicitly split up
   // Since they are treated differntly
-  async _getStory(id) {
-    try {
-      return await HNClient.get(`/item/${id}.json`)
-    } catch (e) {
-      console.error(e)
-      return {}
-    }
+  async getStory(id) {
+    return await HNClient.getItem(id)
   }
 
   async getStories(type, limit) {
     const ids = await this._getStoryIds(type)
     const stories = ids
       .slice(0, limit)
-      .map(id => this._getStory(id).then(x => omit(x, 'kids')))
+      .map(id => this.getStory(id).then(x => omit(x, 'kids')))
     return await Promise.all(stories)
   }
 }

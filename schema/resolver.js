@@ -1,3 +1,6 @@
+const maybeFetchComments = (maybeArray, args, context) =>
+  Array.isArray(maybeArray) ? maybeArray.map(context.Comment.getComment) : null
+
 const rootResolver = {
   Query: {
     stories: (_, { type = 'best', limit = 20 }, context) =>
@@ -6,17 +9,16 @@ const rootResolver = {
     user: (_, { id }, context) => context.User.getUser(id)
   },
   Story: {
-    kids: (story, _, context) => story.kids.map(context.Comment.getComment)
+    kids: (story, args, context) =>
+      maybeFetchComments(story.kids, args, context)
   },
   Comment: {
-    kids: (comment, _, context) =>
-      Array.isArray(comment.kids)
-        ? comment.kids.map(context.Comment.getComment)
-        : null
+    kids: (comment, args, context) =>
+      maybeFetchComments(comment.kids, args, context)
   },
   User: {
-    submitted: (user, _, context) =>
-      user.submitted.map(context.Comment.getComment)
+    submitted: (user, args, context) =>
+      maybeFetchComments(user.submitted, args, context)
   }
 }
 

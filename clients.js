@@ -26,6 +26,33 @@ class HNClient extends BaseClient {
       ...options
     })
   }
+
+  async getItem(id) {
+    try {
+      return await this.get(`/item/${id}.json`)
+    } catch (e) {
+      console.error(e)
+      return {}
+    }
+  }
+
+  async getUser(id) {
+    try {
+      return await this.get(`/user/${id}.json`)
+    } catch (e) {
+      console.error(e)
+      return {}
+    }
+  }
+
+  async getStoryIds(type) {
+    try {
+      return await this.get(`/${type}stories.json`)
+    } catch (e) {
+      console.error(e)
+      return []
+    }
+  }
 }
 
 module.exports = {
