@@ -12,7 +12,7 @@ if (config.server.env !== 'production') {
 }
 
 module.exports = makeExecutableSchema({
-  typeDefs: [...rootSchema],
+  typeDefs: [rootSchema],
   logger,
   resolvers: rootResolver
 })

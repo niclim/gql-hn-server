@@ -1,37 +1,68 @@
-module.exports = [
-  `
+module.exports = `
 enum ItemType {
-  job
+  # job
   story
   comment
-  poll
-  pollopt
+  # poll
+  # pollopt
 }
 
-type Item {
-  id: Int!
-  deleted: Boolean
+type Comment {
+  id: Int
   type: ItemType
   by: String
+  parent: Int
   time: Int
   text: String
-  dead: Boolean
-  parent: Int
-  poll: Int
-  kids: [Int]
+  kids: [Comment]
+}
+
+type Story {
+  id: Int!
+  by: String
+  descendants: Int
+  type: ItemType
+  time: Int
   url: String
   score: Int
   title: String
-  parts: [Int]
+  text: String
+  kids: [Comment]
+}
+
+# Explicitly exclude kids
+type TopItem {
+  id: Int!
+  by: String
   descendants: Int
+  type: ItemType
+  time: Int
+  url: String
+  score: Int
+  title: String
+  text: String
+}
+
+enum StoryType {
+  top
+  new
+  best
+  ask
+  show
+  # job
 }
 
 type Query {
-  test(type: Int): Int
+  stories(
+    type: StoryType
+    limit: Int
+  ): [TopItem]
+  story(
+    id: Int!
+  ): Story
 }
 
 schema {
   query: Query
 }
 `
-]

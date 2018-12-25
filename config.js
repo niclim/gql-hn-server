@@ -4,6 +4,6 @@ module.exports = {
     env: process.env.NODE_ENV || 'development' // development, test, production
   },
   api: {
-    base_url: process.env.BASE_URL || 'https://conduit.productionready.io/api'
+    hnUrl: process.env.hnUrl || 'https://hacker-news.firebaseio.com/v0/'
   }
 }
