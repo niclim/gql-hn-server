@@ -7,6 +7,33 @@ enum ItemType {
   # pollopt
 }
 
+type User {
+  id: String!
+  created: Int!
+  karma: Int!
+  delay: Int 
+  about: String
+  submitted: [Item]
+}
+
+type Item {
+  id: Int!
+  deleted: Boolean
+  type: ItemType
+  by: String
+  time: Int
+  text: String
+  dead: Boolean
+  parent: Int
+  poll: Int
+  kids: [Comment]
+  url: String
+  score: Int
+  title: String
+  parts: [Int]
+  descendants: Int
+}
+
 type Comment {
   id: Int
   type: ItemType
@@ -60,6 +87,9 @@ type Query {
   story(
     id: Int!
   ): Story
+  user(
+    id: String!
+  ): User
 }
 
 schema {

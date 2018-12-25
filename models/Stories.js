@@ -13,7 +13,7 @@ class Stories {
 
   // Basically the same as Comment.get but want to explicitly split up
   // Since they are treated differntly
-  async getStory(id) {
+  async _getStory(id) {
     try {
       return await HNClient.get(`/item/${id}.json`)
     } catch (e) {
@@ -26,7 +26,7 @@ class Stories {
     const ids = await this._getStoryIds(type)
     const stories = ids
       .slice(0, limit)
-      .map(id => this.getStory(id).then(x => omit(x, 'kids')))
+      .map(id => this._getStory(id).then(x => omit(x, 'kids')))
     return await Promise.all(stories)
   }
 }

@@ -1,9 +1,9 @@
 const { HNClient } = require('../clients')
 
-class Comment {
-  async getComment(id) {
+class User {
+  async getUser(id) {
     try {
-      return await HNClient.get(`/item/${id}.json`)
+      return await HNClient.get(`/user/${id}.json`)
     } catch (e) {
       console.error(e)
       return {}
@@ -11,4 +11,4 @@ class Comment {
   }
 }
 
-module.exports = Comment
+module.exports = User
