@@ -12,10 +12,10 @@ class Stories {
     return await HNClient.getItem(id)
   }
 
-  async getStories(type, limit) {
+  async getStories(type, first, after) {
     const ids = await this._getStoryIds(type)
     const stories = ids
-      .slice(0, limit)
+      .slice(after, after + first)
       .map(id => this.getStory(id).then(x => omit(x, 'kids')))
     return await Promise.all(stories)
   }

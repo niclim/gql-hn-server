@@ -13,7 +13,7 @@ type User {
   karma: Int!
   delay: Int 
   about: String
-  submitted: [Item]
+  submitted(first: Int, after: Int): [Item]
 }
 
 type Item {
@@ -41,7 +41,7 @@ type Comment {
   parent: Int
   time: Int
   text: String
-  kids: [Comment]
+  kids(first: Int, after: Int): [Comment]
 }
 
 type Story {
@@ -54,7 +54,7 @@ type Story {
   score: Int
   title: String
   text: String
-  kids: [Comment]
+  kids(first: Int, after: Int): [Comment]
 }
 
 # Explicitly exclude kids
@@ -82,7 +82,8 @@ enum StoryType {
 type Query {
   stories(
     type: StoryType
-    limit: Int
+    first: Int,
+    after: Int
   ): [TopItem]
   story(
     id: Int!

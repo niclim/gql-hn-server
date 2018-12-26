@@ -1,10 +1,13 @@
-const maybeFetchComments = (maybeArray, args, context) =>
-  Array.isArray(maybeArray) ? maybeArray.map(context.Comment.getComment) : null
+// Use offset based pagination
+const maybeFetchComments = (maybeArray, { first = 20, after = 0 }, context) =>
+  Array.isArray(maybeArray)
+    ? maybeArray.slice(after, after + first).map(context.Comment.getComment)
+    : null
 
 const rootResolver = {
   Query: {
-    stories: (_, { type = 'best', limit = 20 }, context) =>
-      context.Stories.getStories(type, limit),
+    stories: (_, { type = 'best', first = 20, after = 0 }, context) =>
+      context.Stories.getStories(type, first, after),
     story: (_, { id }, context) => context.Stories.getStory(id),
     user: (_, { id }, context) => context.User.getUser(id)
   },
