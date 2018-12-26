@@ -3,8 +3,6 @@ Basic gql server implementation using the hacker news api - [https://github.com/
 
 ## Todo
 - add pagination to users, stories
-- add job / poll / pollopt
-- add tests
 
 ## Notes
-- Does not handle polls right now 🤷
+- Does not handle polls / jobs right now 🤷
